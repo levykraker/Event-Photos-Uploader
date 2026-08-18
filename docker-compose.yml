@@ -1,0 +1,22 @@
+---
+services:
+  front:
+    container_name: Event-Photos-Uploader-Frontend
+    image: anawalinski/reactjs-sandbox
+    restart: unless-stopped
+    volumes:
+      - "${FRONT_DIR}:/opt/project"
+    command: npm run start -- --host 0.0.0.0
+    ports:
+      - "${WEB_PORT}:5173"
+
+  api:
+    container_name: Event-Photos-Uploader-Backend
+    image: anawalinski/reactjs-sandbox:ffmpeg
+    restart: unless-stopped
+    volumes:
+      - "${BACKEND_DIR}:/opt/project"
+      - "${DATA_DIR}:/opt/data"
+    command: npm run start -- --host 0.0.0.0
+    ports:
+      - "${API_PORT}:3000"

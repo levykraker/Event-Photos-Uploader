@@ -37,3 +37,6 @@ backend/.env
 backend/node_modules
 !.env.example
 data/events/*
+DATA/events/*
+
+.env

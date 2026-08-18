@@ -302,6 +302,6 @@ app.use((error, req, res, next) => {
 // START
 // --------------------------------------------------
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server działa na http://localhost:${PORT}`);
 });
