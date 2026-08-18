@@ -1,3 +1,13 @@
+# 13.08.2026 - v.1.1.0 Added docker-compose 
+
+## Created:
+
+- Docker compose - easy to deploy app on 
+
+## Changed: 
+
+- Frontend package.json scripts for Docker purpose
+
 # 13.08.2026 - v.1.0.0 First version of application
 
 ## Created:

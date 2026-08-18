@@ -3,7 +3,7 @@ import PhotoGrid from "./components/PhotoGrid";
 import UploadZone from "./components/UploadZone";
 import "./App.css";
 
-const API_URL = "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL
 
 function App() {
   const [photos, setPhotos] = useState([]);
@@ -78,62 +78,62 @@ function App() {
   //  Zip function
   // ---------------------------------------------
   async function downloadSelected() {
-  if (selectedPhotos.size === 0) {
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `${API_URL}/api/photos/download`,
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          filenames: Array.from(selectedPhotos),
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(
-        "Error, issue with downloading photos."
-      );
+    if (selectedPhotos.size === 0) {
+      return;
     }
 
-    // Save response as Blob
-    const blob = await response.blob();
+    try {
+      const response = await fetch(
+        `${API_URL}/api/photos/download`,
+        {
+          method: "POST",
 
-    // Temporary url
-    const url = window.URL.createObjectURL(blob);
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-    // Create invisible link
-    const link = document.createElement("a");
+          body: JSON.stringify({
+            filenames: Array.from(selectedPhotos),
+          }),
+        }
+      );
 
-    link.href = url;
-    link.download = `${import.meta.env.VITE_ZIP_NAME}.zip`;
+      if (!response.ok) {
+        throw new Error(
+          "Error, issue with downloading photos."
+        );
+      }
 
-    document.body.appendChild(link);
+      // Save response as Blob
+      const blob = await response.blob();
 
-    link.click();
+      // Temporary url
+      const url = window.URL.createObjectURL(blob);
 
-    link.remove();
+      // Create invisible link
+      const link = document.createElement("a");
 
-    setTimeout(() => {
-      window.URL.revokeObjectURL(url);
-    }, 1000);
+      link.href = url;
+      link.download = `${import.meta.env.VITE_ZIP_NAME}.zip`;
 
-  } catch (error) {
-    console.error(error);
+      document.body.appendChild(link);
 
-    alert(
-      "Error with downloading photos."
-    );
+      link.click();
+
+      link.remove();
+
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+      }, 1000);
+
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        "Error with downloading photos."
+      );
+    }
   }
-}
 
   // ---------------------------------------------
   // Mark all
@@ -167,7 +167,7 @@ function App() {
     photos.length > 0 &&
     selectedPhotos.size === photos.length;
 
-  const event_name=import.meta.env.VITE_EVENT_NAME;
+  const event_name = import.meta.env.VITE_EVENT_NAME;
   return (
     <div className="app">
       <header className="header">
@@ -179,7 +179,7 @@ function App() {
           </p>
         </div>
 
-       <div className="actions">
+        <div className="actions">
           <UploadZone onUploadComplete={loadPhotos} />
 
           {allSelected ? (
